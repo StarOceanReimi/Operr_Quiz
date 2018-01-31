@@ -11,15 +11,10 @@ public class App {
         list.push(1);
         list.push(2);
         list.push(3);
-        for(Integer i : list) { System.out.println(i); }
-
-        Iterator<Integer> iter = list.iterator();
-        for(; iter.hasNext(); ) {
-            if(iter.next() == 2) iter.remove();
-        }
-
-        for(Integer i : list) { System.out.println(i); }
-
+        list.push(6);
+        list.push(8);
+        list.removeAllGeater(3);
+        System.out.println(list.pop());
 
 
     }

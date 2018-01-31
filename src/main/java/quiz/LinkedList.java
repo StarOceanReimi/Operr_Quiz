@@ -45,12 +45,26 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
         Objects.requireNonNull(node, "node can not be null");
         Node<T> prev = node.prev;
         Node<T> next = node.next;
-        if(prev != null) prev.next = next;
-        if(next != null) next.prev = prev;
+        if(prev != null) { 
+            //if prev is last element, reset tail
+            if(next == null) tail = prev;
+            prev.next = next;
+        }
+        if(next != null) { 
+            //if next is first element, reset head
+            if(prev == null) head = next;
+            next.prev = prev;
+        }
         size--;
-        //last element
-        if(size == 0) resetPointerToNull();
         return next;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int size() {
+        return this.size;
     }
 
     /**
@@ -71,7 +85,8 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
      * 
      */
     public T pop() {
-        if(emptyList()) return null;
+        if(emptyList()) 
+            throw new NullPointerException("Can not pop with empty list");
         size--;
         Node<T> poped = tail;
         tail = poped.prev;
@@ -79,7 +94,6 @@ public class LinkedList<T extends Comparable<T>> implements Iterable<T> {
         if(tail != null) tail.next = null;
         else resetPointerToNull();
         return poped.value;
-
     }
 
     public void removeAllGeater(T value) {
